@@ -14,12 +14,12 @@ if __name__ == "__main__":
     charger = charge_service(1, "AC_DC_Charging", "EVCharging", False, ["DC_extended", "AC_three_phase_core"])
     event = Event()
 
-    ocpp_ip = "10.103.103.43"
+    ocpp_ip = "10.103.103.59"
     ocpp = ocpp_client(ocpp_ip, "443", "0001", "C2309015")
     ocpp_thread = threading.Thread(target=ocpp.start, args=())
     ocpp_thread.start()
 
-    app_ip = "10.103.103.40"
+    app_ip = "10.103.103.57"
     app = EVSE_Server(app_ip, 15118, 15120, ui_handler=ui, process_handler = process, charge_service = charger, ocpp_client = ocpp)
     server_thread = threading.Thread(target=app.start_udp, args=())
     server_thread.daemon = True
